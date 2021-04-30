@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import Navber from '../navber/Navbar';
 
 
 
@@ -21,11 +22,22 @@ const handlFilechange=(e)=>{
     console.log(e.target.value)
     const newFile=e.target.files[0]
     setFile(newFile)
-    e.preventDefault()
+
+    
+}
+
+
+
+const handleSubmit=(event)=>{
+    event.preventDefault()
 
     const formData = new FormData()
-    formData.append('File', file)
-  
+    formData.append('file', file)
+    formData.append('discription', user.discription)
+    formData.append('servicename', user.servicename)
+    formData.append('price',user.price)
+    formData.append('quantity', user.quantity)
+  console.log(user.discription)
     fetch('http://localhost:5000/adservice', {
       method: 'POST',
       body: formData
@@ -37,18 +49,15 @@ const handlFilechange=(e)=>{
     .catch(error => {
       console.error(error)
     })
-
-
 }
 
 
 
-const handleSubmit=(event)=>{
-    
-}
+
+
     return (
         <div>
-            
+              <Navber></Navber>
             <div className="container">
                 <div className="row">
                     <div className="col-md-4">
@@ -57,25 +66,40 @@ const handleSubmit=(event)=>{
                      
 
                     <div className="col-md-8">
-                    <form >
-  <div className="form-group">
-    <label htmlFor="exampleInputEmail1">Email address</label>
-    <input type="email" className="form-control" onBlur={handelBure} name="email" placeholder="Enter email"/>
-    <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>
-  </div>
-  <div className="form-group">
-    <label htmlFor="exampleInputPassword1">Password</label>
-    <input type="password" className="form-control" onBlur={handelBure}  name="password" />
-  </div>
+                    <form onSubmit={handleSubmit}>
+  
   <div className="form-group form-check">
 
+  <div className="form-group">
+    <label htmlFor="exampleInputEmail1">service name</label>
+    <input type="text" className="form-control" onBlur={handelBure} name="servicename" placeholder="service name"/>
+    <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>
+  </div>
+
+  <div className="form-group">
+    <label for="exampleFormControlTextarea1">discription</label>
+    <textarea className="form-control" onBlur={handelBure}  name="discription"  rows="3"></textarea>
+  </div>
+  <div className="form-group">
+    <label for="exampleFormControlTextarea1">quantity</label>
+    <textarea className="form-control" onBlur={handelBure}  name="quantity"  rows="3"></textarea>
+  </div>
+  <div className="form-group">
+    <label htmlFor="exampleInputPassword1">price</label>
+    <input type="number" className="form-control" onBlur={handelBure}  name="price" />
+  </div>
+
     <input type="file"  onChange={handlFilechange} className="form-check-input" />
-    <label className="form-check-label" htmlFor="exampleCheck1">upload file</label>
+    <label className="form-check-label" name="img" htmlFor="exampleCheck1">upload file</label>
   </div>
   <button type="submit" className="btn btn-primary">Submit</button>
 </form>
                     </div>
                 </div>
+            </div>
+
+            <div>
+  
             </div>
         </div>
     );

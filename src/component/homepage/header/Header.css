@@ -1,0 +1,21 @@
+.color{
+    background-color:aqua;
+    height:80vh
+}
+.homeimg{
+    transition: .5s ease-in-out;
+}
+.homeimg:hover{
+
+    position: relative;
+     display: block; 
+     left: 0px; 
+     top: 0px; 
+     transform: translate3d(-6.24246px, -16.9338px, 0px); 
+     transform-style: preserve-3d; 
+     backface-visibility: hidden;
+    
+}
+.homeimg img{
+    width:400px
+}
